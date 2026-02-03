@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import './db/index.js'
 import { errorHandler, notFound } from './middleware/errorHandler.js';
 
 // Routes
