@@ -6,7 +6,7 @@ interface AuthContextType {
   user: User | null
   loading: boolean
   login: (email: string, password: string) => Promise<void>
-  signup: (email: string, password: string, fullName?: string, currency?: string) => Promise<void>
+  signup: (email: string, password: string, fullName?: string) => Promise<void>
   logout: () => void
   updateUser: (userData: Partial<User>) => void
 }
@@ -44,8 +44,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(user)
   }
 
-  const signup = async (email: string, password: string, fullName?: string, currency?: string) => {
-    await api.post('/api/auth/signup', { email, password, fullName, currency })
+  const signup = async (email: string, password: string, fullName?: string) => {
+    await api.post('/api/auth/signup', { email, password, fullName })
   }
 
   const logout = () => {

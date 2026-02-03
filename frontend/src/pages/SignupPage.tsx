@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { motion } from 'framer-motion'
-import { TrendingUp, Eye, EyeOff, DollarSign } from 'lucide-react'
+import { TrendingUp, Eye, EyeOff} from 'lucide-react'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import Card from '../components/ui/Card'
@@ -15,7 +15,6 @@ const signupSchema = z.object({
   email: z.string().email('Invalid email address'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
   confirmPassword: z.string(),
-  currency: z.enum(['USD', 'EUR', 'GBP', 'JPY', 'KES']).optional(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ['confirmPassword'],
@@ -43,7 +42,7 @@ export default function SignupPage() {
     try {
       setError('')
       setIsLoading(true)
-      await signup(data.email, data.password, data.fullName || undefined, data.currency)
+      await signup(data.email, data.password, data.fullName || undefined)
       navigate('/login') // Navigate to login page after successful signup
     } catch (err: any) {
       const apiError = err?.response?.data?.error
@@ -151,23 +150,6 @@ export default function SignupPage() {
               )}
             </div>
 
-            <div className="space-y-2">
-              <label className="label flex items-center gap-2">
-                <DollarSign size={16} className="text-green-500" />
-                Default Currency
-              </label>
-              <select
-                {...register('currency')}
-                defaultValue="USD"
-                className="input"
-              >
-                <option value="USD">USD - US Dollar</option>
-                <option value="EUR">EUR - Euro</option>
-                <option value="GBP">GBP - British Pound</option>
-                <option value="JPY">JPY - Japanese Yen</option>
-                <option value="KES">KES - Kenyan Shilling</option>
-              </select>
-            </div>
 
             <Button type="submit" className="w-full" isLoading={isLoading}>
               Create Account
