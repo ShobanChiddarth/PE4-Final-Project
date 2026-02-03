@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 5000;
 // Security middleware
 app.use(helmet());
 
-// CORS configuration to allow local dev and deployed frontend
+// CORS configuration to allow local dev and all Vercel deployments for this app
 const allowedOrigins = [
   process.env.FRONTEND_URL,
   'http://localhost:5173',
@@ -36,9 +36,18 @@ app.use(
     origin: (origin, callback) => {
       // Allow non-browser tools / same-origin requests with no Origin header
       if (!origin) return callback(null, true);
+
+      // Explicit allow-list
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
+
+      // Allow all Vercel preview/production URLs for this project
+      const vercelPattern = /^https:\/\/finance-tracker-.*\.vercel\.app$/;
+      if (vercelPattern.test(origin)) {
+        return callback(null, true);
+      }
+
       return callback(new Error('Not allowed by CORS'));
     },
     credentials: true,
