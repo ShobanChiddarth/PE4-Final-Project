@@ -15,7 +15,7 @@ services:
       timeout: 5s
       retries: 5
 
-backend:
+  backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -40,7 +40,7 @@ backend:
       - ./backend/uploads:/app/uploads
     command: sh -c "node src/db/migrate.js && node src/db/seed.js && node src/server.js"
 
-frontend:
+  frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
