@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "0.0.0.0:5433:5432"
+      - "127.0.0.1:5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -26,6 +26,7 @@ services:
     environment:
       NODE_ENV: production
       PORT: 5000
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/finance_tracker
       DB_HOST: postgres
       DB_PORT: 5432
       DB_NAME: finance_tracker
