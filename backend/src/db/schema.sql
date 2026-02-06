@@ -158,23 +158,38 @@ END;
 $$ language 'plpgsql';
 
 -- Triggers for updated_at
+DROP TRIGGER IF EXISTS update_users_updated_at ON users;
+
 CREATE TRIGGER update_users_updated_at BEFORE UPDATE ON users
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+
+DROP TRIGGER IF EXISTS update_categories_updated_at ON categories;
 
 CREATE TRIGGER update_categories_updated_at BEFORE UPDATE ON categories
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+DROP TRIGGER IF EXISTS update_wallets_updated_at ON wallets;
+
 CREATE TRIGGER update_wallets_updated_at BEFORE UPDATE ON wallets
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+DROP TRIGGER IF EXISTS update_transactions_updated_at ON transactions;
 
 CREATE TRIGGER update_transactions_updated_at BEFORE UPDATE ON transactions
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+DROP TRIGGER IF EXISTS update_savings_goals_updated_at ON savings_goals;
+
 CREATE TRIGGER update_savings_goals_updated_at BEFORE UPDATE ON savings_goals
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+DROP TRIGGER IF EXISTS update_debts_updated_at ON debts;
+
 CREATE TRIGGER update_debts_updated_at BEFORE UPDATE ON debts
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+DROP TRIGGER IF EXISTS update_budget_alerts_updated_at ON budget_alerts;
 
 CREATE TRIGGER update_budget_alerts_updated_at BEFORE UPDATE ON budget_alerts
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
